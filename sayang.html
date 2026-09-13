@@ -21,6 +21,7 @@
         <button class="tab-btn is-active" data-tab="beranda">Beranda</button>
         <button class="tab-btn" data-tab="surat">Untuk Kamu</button>
         <button class="tab-btn" data-tab="galeri">Galeri</button>
+        <button class="tab-btn" data-tab="fotobox">Foto Box</button>
         <button class="tab-btn" data-tab="game">Main Game</button>
         <button class="tab-btn" data-tab="kejutan">Kejutan <i class="lock-dot" id="lock-dot"></i></button>
       </nav>
@@ -72,9 +73,44 @@
         <div class="section-head">
           <p class="section-kicker">kenangan kita</p>
           <h2 class="section-title">Beberapa momen favorit</h2>
-          <p class="section-sub">Ganti kotak di bawah ini dengan foto kalian berdua — taruh file foto di folder <code>images</code>, lalu ubah nama file di <code>script.js</code> bagian <code>galleryPhotos</code>.</p>
+          <p class="section-sub">Ganti kotak di bawah ini dengan foto kalian berdua — taruh file foto di folder <code>images</code>, lalu ubah nama file di <code>script.js</code> bagian <code>galleryPhotos</code>. Foto dari tab "Foto Box" juga otomatis muncul di sini.</p>
         </div>
         <div class="gallery-grid" id="gallery-grid"></div>
+      </section>
+
+      <!-- ================= FOTO BOX ================= -->
+      <section class="page" id="page-fotobox">
+        <div class="section-head">
+          <p class="section-kicker">rol kamera</p>
+          <h2 class="section-title">Foto Box</h2>
+          <p class="section-sub">Foto langsung pakai kamera, otomatis jadi 3 jepretan dengan bingkai pink-hitam, terus kesimpen sendiri ke tab Galeri.</p>
+        </div>
+
+        <div class="photobox">
+          <div class="photobox-stage" id="photobox-stage">
+            <video id="photobox-video" autoplay playsinline muted></video>
+            <div class="photobox-frame-overlay" id="photobox-frame-overlay"></div>
+            <div class="photobox-countdown hidden" id="photobox-countdown"></div>
+            <div class="photobox-flash" id="photobox-flash"></div>
+            <p class="photobox-idle-msg" id="photobox-idle-msg">Kamera belum aktif</p>
+          </div>
+
+          <canvas id="photobox-canvas" class="hidden"></canvas>
+
+          <div class="photobox-controls" id="photobox-controls">
+            <button class="btn-primary btn-small" id="photobox-start-cam">Aktifkan Kamera</button>
+          </div>
+
+          <p class="photobox-status" id="photobox-status"></p>
+
+          <div class="photobox-result hidden" id="photobox-result">
+            <img id="photobox-strip-img" alt="Hasil foto box">
+            <div class="photobox-result-actions">
+              <button class="btn-primary btn-small" id="photobox-save">Simpan ke Galeri</button>
+              <button class="btn-ghost btn-small" id="photobox-retake">Ulangi</button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ================= GAME ================= -->
