@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Ulang Tahun, Sayang 🖤🩷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,500;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="app">
+
+    <header class="topbar">
+      <span class="brand">untuk. cinta </span>
+      <nav class="tabs" id="tabs">
+        <button class="tab-btn is-active" data-tab="beranda">Beranda</button>
+        <button class="tab-btn" data-tab="surat">Untuk Kamu</button>
+        <button class="tab-btn" data-tab="galeri">Galeri</button>
+        <button class="tab-btn" data-tab="fotobox">Foto Box</button>
+        <button class="tab-btn" data-tab="game">Main Game</button>
+        <button class="tab-btn" data-tab="kejutan">Kejutan <i class="lock-dot" id="lock-dot"></i></button>
+      </nav>
+    </header>
+
+    <main class="pages">
+
+      <!-- ================= BERANDA ================= -->
+      <section class="page is-active" id="page-beranda">
+        <div class="hero">
+          <p class="hero-eyebrow">hari ini, tanggal spesial</p>
+          <h1 class="hero-title">Selamat Ulang Tahun,<br><em>Sayang.</em></h1>
+          <p class="hero-sub">Dari semua hari dalam setahun, hari ini paling penting — karena hari ini dunia kedatangan kamu. Semoga tahun ini penuh hal-hal baik yang kamu tunggu-tunggu.</p>
+          <button class="btn-primary" id="hero-cta">Buka suratnya &nbsp;→</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num" id="stat-days">—</span>
+            <span class="stat-label">hari lebih bijak</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">1</span>
+            <span class="stat-label">orang yang sayang kamu banget</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">∞</span>
+            <span class="stat-label">alasan buat bahagia hari ini</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SURAT ================= -->
+      <section class="page" id="page-surat">
+        <div class="letter">
+          <p class="letter-kicker">sebuah surat kecil</p>
+          <h2 class="letter-title">Untuk kamu, yang lagi baca ini sambil senyum-senyum sendiri</h2>
+          <div class="letter-body">
+            <p>Selamat ulang tahun. Semoga satu tahun ke depan, semua hal yang kamu perjuangkan diam-diam akhirnya kelihatan hasilnya. Semoga kamu makin sayang sama diri kamu sendiri, sama seperti aku sayang kamu.</p>
+            <p>Terima kasih sudah jadi kamu — yang cerewetnya kadang bikin gemas, yang tawanya gampang banget bikin hari jelek jadi lebih ringan, dan yang selalu ada walaupun kita lagi jauh atau lagi sibuk sendiri-sendiri.</p>
+            <p>Aku nggak janji bisa selalu ada tepat waktu setiap saat kamu butuh. Tapi aku janji, selama aku bisa, kamu nggak akan pernah harus ngerayain apa pun sendirian.</p>
+            <p>Jadi hari ini, nggak usah mikirin apa-apa dulu. Makan yang enak, tidur yang cukup, dan biarin dirimu dirayakan — walau cuma lewat halaman kecil ini.</p>
+          </div>
+          <p class="letter-sign">— yang selalu nungguin chat kamu duluan</p>
+        </div>
+      </section>
+
+      <!-- ================= GALERI ================= -->
+      <section class="page" id="page-galeri">
+        <div class="section-head">
+          <p class="section-kicker">kenangan kita</p>
+          <h2 class="section-title">Beberapa momen favorit</h2>
+          <p class="section-sub">Ganti kotak di bawah ini dengan foto kalian berdua — taruh file foto di folder <code>images</code>, lalu ubah nama file di <code>script.js</code> bagian <code>galleryPhotos</code>. Foto dari tab "Foto Box" juga otomatis muncul di sini.</p>
+        </div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+      </section>
+
+      <!-- ================= FOTO BOX ================= -->
+      <section class="page" id="page-fotobox">
+        <div class="section-head">
+          <p class="section-kicker">rol kamera</p>
+          <h2 class="section-title">Foto Box</h2>
+          <p class="section-sub">Foto langsung pakai kamera, otomatis jadi 3 jepretan dengan bingkai pink-hitam, terus kesimpen sendiri ke tab Galeri.</p>
+        </div>
+
+        <div class="photobox">
+          <div class="photobox-stage" id="photobox-stage">
+            <video id="photobox-video" autoplay playsinline muted></video>
+            <div class="photobox-frame-overlay" id="photobox-frame-overlay"></div>
+            <div class="photobox-countdown hidden" id="photobox-countdown"></div>
+            <div class="photobox-flash" id="photobox-flash"></div>
+            <p class="photobox-idle-msg" id="photobox-idle-msg">Kamera belum aktif</p>
+          </div>
+
+          <canvas id="photobox-canvas" class="hidden"></canvas>
+
+          <div class="photobox-controls" id="photobox-controls">
+            <button class="btn-primary btn-small" id="photobox-start-cam">Aktifkan Kamera</button>
+          </div>
+
+          <p class="photobox-status" id="photobox-status"></p>
+
+          <div class="photobox-result hidden" id="photobox-result">
+            <img id="photobox-strip-img" alt="Hasil foto box">
+            <div class="photobox-result-actions">
+              <button class="btn-primary btn-small" id="photobox-save">Simpan ke Galeri</button>
+              <button class="btn-ghost btn-small" id="photobox-retake">Ulangi</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= GAME ================= -->
+      <section class="page" id="page-game">
+        <div class="section-head">
+          <p class="section-kicker">mini game</p>
+          <h2 class="section-title">Kumpulin Cinta</h2>
+          <p class="section-sub">Klik hati-hati yang muncul sebelum menghilang. Kumpulin <strong id="target-label">30</strong> poin buat buka halaman Kejutan.</p>
+        </div>
+
+        <div class="game-hud">
+          <div class="hud-item">
+            <span class="hud-label">Poin</span>
+            <span class="hud-value" id="score-val">0</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-label">Waktu</span>
+            <span class="hud-value" id="time-val">30</span>
+          </div>
+          <button class="btn-primary btn-small" id="start-game">Mulai</button>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="game-field" id="game-field">
+          <p class="game-idle-msg" id="game-idle-msg">Tekan "Mulai" untuk main</p>
+        </div>
+
+        <p class="game-result" id="game-result"></p>
+      </section>
+
+      <!-- ================= KEJUTAN ================= -->
+      <section class="page" id="page-kejutan">
+        <div class="surprise-locked" id="surprise-locked">
+          <div class="lock-icon">🔒</div>
+          <h2 class="section-title">Masih terkunci</h2>
+          <p class="section-sub">Selesaikan mini game di tab "Main Game" dulu buat buka halaman ini.</p>
+          <button class="btn-primary btn-small" data-goto="game">Ke halaman game</button>
+        </div>
+        <div class="surprise-unlocked hidden" id="surprise-unlocked">
+          <p class="section-kicker">yeay, berhasil</p>
+          <h2 class="section-title">Kejutan kecil buat kamu</h2>
+          <div class="surprise-card">
+            <p class="surprise-text" id="surprise-text"></p>
+          </div>
+          <button class="btn-primary btn-small" id="replay-game">Main lagi</button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>dibuat dengan sedikit kode dan banyak sayang.</p>
+    </footer>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
