@@ -352,6 +352,146 @@ body{
   color: #fff;
 }
 
+/* ---------- kotak kado ---------- */
+
+.giftbox-wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 36px 0 12px;
+}
+
+.giftbox{
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  width: 176px;
+  height: 168px;
+  perspective: 700px;
+}
+
+.giftbox:active .giftbox-base{ transform: scale(0.97); }
+
+.giftbox.is-tapped .giftbox-base{
+  animation: giftbox-wiggle 0.35s ease;
+}
+
+@keyframes giftbox-wiggle{
+  0%, 100%{ transform: rotate(0deg); }
+  25%{ transform: rotate(-3deg); }
+  60%{ transform: rotate(3deg); }
+  85%{ transform: rotate(-1.5deg); }
+}
+
+.giftbox-base{
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 0;
+  height: 118px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, var(--pink-soft), var(--pink));
+  box-shadow: 0 20px 40px -20px rgba(255, 46, 126, 0.6), inset 0 1px 0 rgba(255,255,255,0.35);
+  transition: transform 0.2s ease;
+}
+
+.giftbox-ribbon-v{
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 18px;
+  margin-left: -9px;
+  background: var(--gold);
+  opacity: 0.9;
+}
+
+.giftbox-lid{
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #fff2f7, var(--pink-soft));
+  box-shadow: 0 8px 16px -8px rgba(255, 46, 126, 0.45), inset 0 1px 0 rgba(255,255,255,0.6);
+  transform-origin: top center;
+  transition: transform 0.7s cubic-bezier(.34,1.4,.64,1), opacity 0.6s ease 0.15s;
+}
+
+.giftbox-bow-loop{
+  position: absolute;
+  top: -14px;
+  width: 30px;
+  height: 22px;
+  background: var(--gold);
+  border-radius: 50% 50% 50% 4px;
+}
+
+.giftbox-bow-loop-l{ left: 50%; transform: translateX(-100%) rotate(-20deg); }
+.giftbox-bow-loop-r{ left: 50%; transform: translateX(0%) rotate(20deg) scaleX(-1); }
+
+.giftbox-bow-knot{
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 4px;
+  background: var(--gold);
+}
+
+.giftbox.is-open .giftbox-lid{
+  transform: rotateX(-115deg) translateY(-6px);
+  opacity: 0;
+}
+
+.giftbox.is-open .giftbox-base{
+  box-shadow: 0 20px 40px -20px rgba(255, 46, 126, 0.6), inset 0 1px 0 rgba(255,255,255,0.35),
+    0 0 30px 6px rgba(255, 46, 126, 0.45);
+}
+
+.giftbox-hint{
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.giftbox-reveal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 0 12px;
+  animation: page-in 0.5s ease both;
+}
+
+.giftbox-reveal-kicker{
+  color: var(--pink-soft);
+  font-size: 13px;
+  margin: 0;
+}
+
+.giftbox-photo-frame{
+  width: 100%;
+  max-width: 260px;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--pink-soft);
+  box-shadow: 0 0 30px -6px rgba(255, 46, 126, 0.4);
+}
+
+.giftbox-caption{
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0;
+}
+
 /* ---------- foto box ---------- */
 
 .photobox{
@@ -369,17 +509,20 @@ body{
   border-radius: 20px;
   overflow: hidden;
   background: #000;
-  border: 1px solid rgba(255, 46, 126, 0.25);
-  box-shadow: 0 16px 34px -18px rgba(0, 0, 0, 0.55);
+  border: 3px solid var(--pink-soft);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.25) inset,
+    0 0 18px 2px rgba(255, 46, 126, 0.3),
+    0 16px 34px -18px rgba(255, 46, 126, 0.55);
   transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-.photobox-stage.is-live{
+.photobox-stage.is-lit{
   border-color: var(--pink);
   box-shadow:
-    0 0 0 1px var(--pink),
-    0 0 26px 4px rgba(255, 46, 126, 0.45),
-    0 16px 34px -18px rgba(255, 46, 126, 0.5);
+    0 0 0 1px rgba(255,255,255,0.4) inset,
+    0 0 50px 12px rgba(255, 46, 126, 0.9),
+    0 16px 40px -14px rgba(255, 46, 126, 0.75);
 }
 
 .photobox-stage video{
@@ -394,15 +537,13 @@ body{
   position: absolute;
   inset: 0;
   pointer-events: none;
-  border-radius: 20px;
-  box-shadow: inset 0 0 0 1px rgba(255, 46, 126, 0);
-  opacity: 0;
-  transition: opacity 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 2px rgba(255, 184, 217, 0.55);
+  transition: box-shadow 0.4s ease;
 }
 
-.photobox-stage.is-live .photobox-frame-overlay{
-  opacity: 1;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), inset 0 0 20px rgba(255, 46, 126, 0.35);
+.photobox-stage.is-lit .photobox-frame-overlay{
+  box-shadow: inset 0 0 0 2px var(--pink), inset 0 0 26px rgba(255, 46, 126, 0.55);
 }
 
 .photobox-idle-msg{

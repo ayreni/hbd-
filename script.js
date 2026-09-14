@@ -17,7 +17,12 @@ const CONFIG = {
     { src: "images/foto6.jpg", caption: "Momen favorit #6" }
   ],
   photoboxShots: 3,
-  photoboxCountdown: 3
+  photoboxCountdown: 3,
+  giftboxPhoto: {
+    src: "images/kado-foto.jpg",
+    caption: "Kejutan kecil buat kamu 🎀"
+  },
+  giftboxTapsNeeded: 3
 };
 
 const PHOTOBOX_STORAGE_KEY = "hbd_photobox_gallery";
@@ -48,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderGallery();
   setupGame();
   setupPhotobox();
+  setupGiftbox();
   startBackgroundParticles();
 
   document.getElementById("hero-cta").addEventListener("click", () => switchTab("surat"));
@@ -283,7 +289,56 @@ function unlockSurprise() {
 }
 
 /* =========================================================
-   FOTO BOX — kamera real-time, bingkai pink-hitam, ke Galeri
+   KOTAK KADO — ketuk 3x buat buka, isinya foto kejutan
+   ========================================================= */
+function setupGiftbox() {
+  const btn = document.getElementById("giftbox-btn");
+  const hint = document.getElementById("giftbox-hint");
+  const wrap = document.getElementById("giftbox-wrap");
+  const reveal = document.getElementById("giftbox-reveal");
+  const resetBtn = document.getElementById("giftbox-reset");
+  const needed = CONFIG.giftboxTapsNeeded;
+  let taps = 0;
+
+  // isi foto dari CONFIG, dengan fallback kalau file belum ada
+  const img = document.getElementById("giftbox-photo");
+  const captionEl = document.getElementById("giftbox-caption");
+  img.src = CONFIG.giftboxPhoto.src;
+  img.alt = CONFIG.giftboxPhoto.caption;
+  captionEl.textContent = CONFIG.giftboxPhoto.caption;
+  img.addEventListener("error", () => img.remove());
+
+  btn.addEventListener("click", () => {
+    if (taps >= needed) return;
+    taps += 1;
+
+    btn.classList.remove("is-tapped");
+    void btn.offsetWidth; // restart animasi
+    btn.classList.add("is-tapped");
+
+    if (taps < needed) {
+      hint.textContent = `Ketuk lagi… (${taps}/${needed})`;
+    } else {
+      hint.textContent = "Terbuka! 🎉";
+      btn.classList.add("is-open");
+      setTimeout(() => {
+        wrap.classList.add("hidden");
+        reveal.classList.remove("hidden");
+      }, 650);
+    }
+  });
+
+  resetBtn.addEventListener("click", () => {
+    taps = 0;
+    btn.classList.remove("is-open", "is-tapped");
+    hint.textContent = `Ketuk kotaknya (0/${needed})`;
+    reveal.classList.add("hidden");
+    wrap.classList.remove("hidden");
+  });
+}
+
+/* =========================================================
+   FOTO BOX — kamera real-time, bingkai pink elegan, ke Galeri
    ========================================================= */
 function setupPhotobox() {
   const startBtn = document.getElementById("photobox-start-cam");
@@ -421,6 +476,7 @@ function photoboxCountdownAndCapture(shots) {
 function captureFrame(shots) {
   const video = document.getElementById("photobox-video");
   const flash = document.getElementById("photobox-flash");
+  const stage = document.getElementById("photobox-stage");
 
   const w = 480;
   const h = 360;
@@ -457,6 +513,12 @@ function captureFrame(shots) {
   flash.classList.remove("is-flashing");
   void flash.offsetWidth;
   flash.classList.add("is-flashing");
+
+  // border kamera ikut menyala pink pas jepret
+  stage.classList.remove("is-lit");
+  void stage.offsetWidth;
+  stage.classList.add("is-lit");
+  setTimeout(() => stage.classList.remove("is-lit"), 550);
 }
 
 function composePhotoboxStrip(shots) {
@@ -565,8 +627,27 @@ function savePhotoboxResult() {
 }
 
 /* =========================================================
-   BACKGROUND PARTICLES — hati kecil melayang pelan
+   BACKGROUND PARTICLES — hati kecil melayang pelan, ngambang & muter dikit
    ========================================================= */
+function drawHeart(ctx, x, y, size, rotation, alpha) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(rotation);
+  ctx.scale(size / 16, size / 16);
+  ctx.beginPath();
+  ctx.moveTo(0, 5);
+  ctx.bezierCurveTo(0, 2, -3, -3, -8, -3);
+  ctx.bezierCurveTo(-14, -3, -14, 4, -14, 4);
+  ctx.bezierCurveTo(-14, 9, -8, 13, 0, 18);
+  ctx.bezierCurveTo(8, 13, 14, 9, 14, 4);
+  ctx.bezierCurveTo(14, 4, 14, -3, 8, -3);
+  ctx.bezierCurveTo(3, -3, 0, 2, 0, 5);
+  ctx.closePath();
+  ctx.fillStyle = `rgba(255, 184, 217, ${alpha})`;
+  ctx.fill();
+  ctx.restore();
+}
+
 function startBackgroundParticles() {
   const canvas = document.getElementById("bg-canvas");
   const ctx = canvas.getContext("2d");
@@ -578,14 +659,19 @@ function startBackgroundParticles() {
   }
 
   function makeParticles() {
-    const count = Math.round((width * height) / 90000);
-    particles = Array.from({ length: Math.max(14, Math.min(count, 40)) }, () => ({
+    const count = Math.round((width * height) / 95000);
+    particles = Array.from({ length: Math.max(12, Math.min(count, 34)) }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: 1 + Math.random() * 2.2,
-      speed: 0.15 + Math.random() * 0.35,
-      drift: (Math.random() - 0.5) * 0.3,
-      alpha: 0.15 + Math.random() * 0.35
+      size: 8 + Math.random() * 14,
+      speed: 0.12 + Math.random() * 0.3,
+      driftBase: (Math.random() - 0.5) * 0.15,
+      phase: Math.random() * Math.PI * 2,
+      phaseSpeed: 0.006 + Math.random() * 0.012,
+      wobble: 6 + Math.random() * 14,
+      rot: (Math.random() - 0.5) * 0.6,
+      rotSpeed: (Math.random() - 0.5) * 0.006,
+      alpha: 0.12 + Math.random() * 0.3
     }));
   }
 
@@ -593,15 +679,18 @@ function startBackgroundParticles() {
     ctx.clearRect(0, 0, width, height);
     particles.forEach((p) => {
       p.y -= p.speed;
-      p.x += p.drift;
-      if (p.y < -10) {
-        p.y = height + 10;
+      p.phase += p.phaseSpeed;
+      p.x += p.driftBase + Math.sin(p.phase) * (p.wobble * 0.02);
+      p.rot += p.rotSpeed;
+
+      if (p.y < -20) {
+        p.y = height + 20;
         p.x = Math.random() * width;
       }
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(255, 184, 217, ${p.alpha})`;
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
+      if (p.x < -20) p.x = width + 20;
+      if (p.x > width + 20) p.x = -20;
+
+      drawHeart(ctx, p.x, p.y, p.size, p.rot, p.alpha);
     });
     requestAnimationFrame(tick);
   }

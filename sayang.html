@@ -22,6 +22,7 @@
         <button class="tab-btn" data-tab="surat">Untuk Kamu</button>
         <button class="tab-btn" data-tab="galeri">Galeri</button>
         <button class="tab-btn" data-tab="fotobox">Foto Box</button>
+        <button class="tab-btn" data-tab="kado">Kotak Kado</button>
         <button class="tab-btn" data-tab="game">Main Game</button>
         <button class="tab-btn" data-tab="kejutan">Kejutan <i class="lock-dot" id="lock-dot"></i></button>
       </nav>
@@ -83,7 +84,7 @@
         <div class="section-head">
           <p class="section-kicker">rol kamera</p>
           <h2 class="section-title">moments</h2>
-          <p class="section-sub">Foto langsung pakai kamera, otomatis jadi 3 jepretan dengan bingkai pink-hitam, terus kesimpen sendiri ke tab Galeri.</p>
+          <p class="section-sub">Foto langsung pakai kamera. Border kamera bakal nyala pink pas jepret, otomatis jadi 3 jepretan dengan bingkai pink elegan, terus kesimpen sendiri ke tab Galeri.</p>
         </div>
 
         <div class="photobox">
@@ -110,6 +111,42 @@
               <button class="btn-ghost btn-small" id="photobox-retake">Ulangi</button>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- ================= KOTAK KADO ================= -->
+      <section class="page" id="page-kado">
+        <div class="section-head">
+          <p class="section-kicker">satu kotak kecil</p>
+          <h2 class="section-title">Kotak Kado</h2>
+          <p class="section-sub">Ketuk kotaknya tiga kali buat buka kejutan di dalamnya.</p>
+        </div>
+
+        <div class="giftbox-wrap" id="giftbox-wrap">
+          <button class="giftbox" id="giftbox-btn" type="button" aria-label="Ketuk kotak kado">
+            <span class="giftbox-lid">
+              <span class="giftbox-bow-loop giftbox-bow-loop-l"></span>
+              <span class="giftbox-bow-loop giftbox-bow-loop-r"></span>
+              <span class="giftbox-bow-knot"></span>
+            </span>
+            <span class="giftbox-base">
+              <span class="giftbox-ribbon-v"></span>
+            </span>
+          </button>
+          <p class="giftbox-hint" id="giftbox-hint">Ketuk kotaknya (0/3)</p>
+        </div>
+
+        <div class="giftbox-reveal hidden" id="giftbox-reveal">
+          <p class="giftbox-reveal-kicker">yeay, terbuka</p>
+          <div class="photo-frame giftbox-photo-frame">
+            <div class="photo-fallback">
+              <span class="heart-mark">&#9825;</span>
+              <span>Taruh foto di sini<br>(images/kado-foto.jpg)</span>
+            </div>
+            <img id="giftbox-photo" alt="Foto kejutan">
+          </div>
+          <p class="giftbox-caption" id="giftbox-caption"></p>
+          <button class="btn-ghost btn-small" id="giftbox-reset">Tutup lagi</button>
         </div>
       </section>
 

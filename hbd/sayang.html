@@ -16,12 +16,13 @@
   <div class="app">
 
     <header class="topbar">
-      <span class="brand">untuk. cinta </span>
+      <span class="brand">untuk. sayangkuu  </span>
       <nav class="tabs" id="tabs">
         <button class="tab-btn is-active" data-tab="beranda">Beranda</button>
         <button class="tab-btn" data-tab="surat">Untuk Kamu</button>
         <button class="tab-btn" data-tab="galeri">Galeri</button>
         <button class="tab-btn" data-tab="fotobox">Foto Box</button>
+        <button class="tab-btn" data-tab="kado">Kotak Kado</button>
         <button class="tab-btn" data-tab="game">Main Game</button>
         <button class="tab-btn" data-tab="kejutan">Kejutan <i class="lock-dot" id="lock-dot"></i></button>
       </nav>
@@ -71,8 +72,8 @@
       <!-- ================= GALERI ================= -->
       <section class="page" id="page-galeri">
         <div class="section-head">
-          <p class="section-kicker">kenangan kita</p>
-          <h2 class="section-title">Beberapa momen favorit</h2>
+          <p class="section-kicker">today moments</p>
+          <h2 class="section-title">favorit</h2>
           <p class="section-sub">Ganti kotak di bawah ini dengan foto kalian berdua — taruh file foto di folder <code>images</code>, lalu ubah nama file di <code>script.js</code> bagian <code>galleryPhotos</code>. Foto dari tab "Foto Box" juga otomatis muncul di sini.</p>
         </div>
         <div class="gallery-grid" id="gallery-grid"></div>
@@ -82,8 +83,8 @@
       <section class="page" id="page-fotobox">
         <div class="section-head">
           <p class="section-kicker">rol kamera</p>
-          <h2 class="section-title">Foto Box</h2>
-          <p class="section-sub">Foto langsung pakai kamera, otomatis jadi 3 jepretan dengan bingkai pink-hitam, terus kesimpen sendiri ke tab Galeri.</p>
+          <h2 class="section-title">moments</h2>
+          <p class="section-sub">Foto langsung pakai kamera. Border kamera bakal nyala pink pas jepret, otomatis jadi 3 jepretan dengan bingkai pink elegan, terus kesimpen sendiri ke tab Galeri.</p>
         </div>
 
         <div class="photobox">
@@ -113,6 +114,42 @@
         </div>
       </section>
 
+      <!-- ================= KOTAK KADO ================= -->
+      <section class="page" id="page-kado">
+        <div class="section-head">
+          <p class="section-kicker">satu kotak kecil</p>
+          <h2 class="section-title">Kotak Kado</h2>
+          <p class="section-sub">Ketuk kotaknya tiga kali buat buka kejutan di dalamnya.</p>
+        </div>
+
+        <div class="giftbox-wrap" id="giftbox-wrap">
+          <button class="giftbox" id="giftbox-btn" type="button" aria-label="Ketuk kotak kado">
+            <span class="giftbox-lid">
+              <span class="giftbox-bow-loop giftbox-bow-loop-l"></span>
+              <span class="giftbox-bow-loop giftbox-bow-loop-r"></span>
+              <span class="giftbox-bow-knot"></span>
+            </span>
+            <span class="giftbox-base">
+              <span class="giftbox-ribbon-v"></span>
+            </span>
+          </button>
+          <p class="giftbox-hint" id="giftbox-hint">Ketuk kotaknya (0/3)</p>
+        </div>
+
+        <div class="giftbox-reveal hidden" id="giftbox-reveal">
+          <p class="giftbox-reveal-kicker">yeay, terbuka</p>
+          <div class="photo-frame giftbox-photo-frame">
+            <div class="photo-fallback">
+              <span class="heart-mark">&#9825;</span>
+              <span>Taruh foto di sini<br>(images/kado-foto.jpg)</span>
+            </div>
+            <img id="giftbox-photo" alt="Foto kejutan">
+          </div>
+          <p class="giftbox-caption" id="giftbox-caption"></p>
+          <button class="btn-ghost btn-small" id="giftbox-reset">Tutup lagi</button>
+        </div>
+      </section>
+
       <!-- ================= GAME ================= -->
       <section class="page" id="page-game">
         <div class="section-head">
@@ -128,7 +165,7 @@
           </div>
           <div class="hud-item">
             <span class="hud-label">Waktu</span>
-            <span class="hud-value" id="time-val">30</span>
+            <span class="hud-value" id="time-val">15</span>
           </div>
           <button class="btn-primary btn-small" id="start-game">Mulai</button>
         </div>

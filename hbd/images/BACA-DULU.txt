@@ -1,0 +1,19 @@
+Taruh foto kamu di folder ini (images/), lalu samakan namanya sesuai daftar di bawah.
+Kalau nama file persis sama, foto langsung otomatis muncul di web — tidak perlu ubah kode lagi.
+
+1) Foto galeri (6 kotak di tab "Galeri"):
+   images/foto1.jpg
+   images/foto2.jpg
+   images/foto3.jpg
+   images/foto4.jpg
+   images/foto5.jpg
+   images/foto6.jpg
+
+2) Foto kejutan di dalam "Kotak Kado":
+   images/kado-foto.jpg
+
+Format file boleh .jpg, .jpeg, atau .png — kalau pakai .png, ubah juga bagian
+"src" di script.js sesuai nama filenya (lihat langkah lengkap di pesan chat).
+
+Selama foto belum ada, kotaknya akan tetap tampil rapi dengan tulisan
+"Taruh foto di sini" sebagai pengganti sementara — jadi tidak akan rusak/error.
