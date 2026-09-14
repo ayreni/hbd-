@@ -19,7 +19,7 @@ const CONFIG = {
   photoboxShots: 3,
   photoboxCountdown: 3,
   giftboxPhoto: {
-    src: "images/kado-foto.jpg",
+    src: "images/kado-foto.png",
     caption: "Kejutan kecil buat kamu 🎀"
   },
   giftboxTapsNeeded: 3
